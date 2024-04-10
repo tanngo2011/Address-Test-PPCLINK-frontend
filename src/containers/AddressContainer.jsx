@@ -13,13 +13,16 @@ function AddressContainer(props) {
 
     let [districtInput, setDistrictInput] = useState("");
     let [provinceInput, setProvinceInput] = useState("");
+    let [wardInput, setWardInput] = useState("");
     let [detailAddressInput, setDetailAddressInput] = useState("");
 
     let [addressCode, setAddressCode] = useState("");
 
     useEffect(() => {
+
+        let request_param = null;
     
-        getListProvince().then((response_listProvince) => {
+        getListProvince(request_param).then((response_listProvince) => {
 
             setListProvince(response_listProvince.data)
             console.log(response_listProvince);
@@ -31,7 +34,7 @@ function AddressContainer(props) {
 
     let handleAddress = () => {
         console.log(`${provinceInput}, ${districtInput}, ${detailAddressInput}`);
-        setAddressCode(`Địa chỉ ở dạng Mã địa danh là: ${provinceInput}, ${districtInput}, ${detailAddressInput}`)
+        setAddressCode(`Địa chỉ ở dạng Mã địa danh là: ${provinceInput}, ${districtInput}, ${wardInput}, ${detailAddressInput}`)
     }
 
 
@@ -41,12 +44,20 @@ function AddressContainer(props) {
             listProvince = {listProvince} 
             setListDistrict = {setListDistrict}
             setProvinceInput={setProvinceInput}
-            
+            setListProvince={setListProvince}
             />
             <br />
-            <DistrictInput listDistrict = {listDistrict} setDistrictInput = {setDistrictInput}/>
+            <DistrictInput 
+            listDistrict = {listDistrict} 
+            setDistrictInput = {setDistrictInput}
+            setListWard={setListWard}
+            setListDistrict = {setListDistrict}/>
+            
             <br />
-            <WardInput/>
+            <WardInput 
+            listWard = {listWard} 
+            setWardInput={setWardInput}
+            setListWard={setListWard}/>
             <br />
             <Input setDetailAddressInput = {setDetailAddressInput}/>
             <br />

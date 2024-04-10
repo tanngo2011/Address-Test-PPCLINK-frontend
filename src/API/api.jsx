@@ -22,13 +22,15 @@ export let axiosClient = axios.create({
 //Khai báo một function để bổ sung thêm một vài thuộc tính cấu hình khác cho axios nguyên thuỷ trong quá 
 //trình call API: 
 //(Ta sẽ đem function api() này đi sử dụng trong chương trình ở những chỗ cần call API)
-export let api = (method_param, endpoint_param, payload_param) => {
+export let api = (method_param, endpoint_param, payload_param, request_param) => {
   return axiosClient(
     endpoint_param, 
     {
       method: method_param,
       data: payload_param,
       // url: endpoint_param
+
+      params: request_param
     })
     .then((response) => {
       

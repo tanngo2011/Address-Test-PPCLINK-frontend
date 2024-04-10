@@ -23,6 +23,39 @@ input {
   margin-top: 10px;
 }
 
+/* select#district {
+  
+} */
+
+h2 {
+  height: 10px;
+}
+
+
+
+/* CSS cho cụm district-search: */
+#search {
+  display: flex;
+  align-items: baseline;
+
+}
+
+#search-input {
+  width: 100px;
+  margin-right: 10px;
+}
+
+
+#search-button {
+  height: 30px;
+}
+
+
+
+
+
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
