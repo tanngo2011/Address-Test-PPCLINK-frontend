@@ -13,7 +13,7 @@ function Input(props) {
 
     return (
         <>
-            <label for="detail-address"> <h2>Địa chỉ cụ thể: </h2></label>
+            <label htmlFor="detail-address"> <h2>Địa chỉ cụ thể: </h2></label>
             <input type='text' id="detail-address" onChange={handleDetailAddress}></input>
             
         </>

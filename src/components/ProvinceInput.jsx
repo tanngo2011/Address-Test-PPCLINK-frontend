@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getListDistrictByProvince } from "../API/DistrictApi";
 import { getListProvince, getListProvinceByInput } from "../API/ProvinceApi";
+import { getListWardByProvince } from "../API/WardApi";
 
 function ProvinceInput(props) {
-  let { listProvince, setListDistrict, setProvinceInput, setListProvince } = props;
+  let { listProvince, setListDistrict, setProvinceInput, setListProvince, setListWard } = props;
 
 
   let [provinceSearchInput, setProvinceSearchInput] = useState("");
@@ -18,6 +19,12 @@ function ProvinceInput(props) {
     getListDistrictByProvince(value).then((response) => {
       console.log(response);
       setListDistrict(response.data);
+    });
+
+
+    getListWardByProvince(value).then((response) => {
+      console.log(response);
+      setListWard(response.data);
     });
 
   };
@@ -79,9 +86,10 @@ function ProvinceInput(props) {
         id="province"
         title="Đây là danh sách các Tỉnh ở Việt Nam"
         onChange={() => handleProvince(event)}
+        
       >
         {listProvince?.map((province, i) => (
-          <option value={province.id}>{province.provinceName}</option>
+          <option key={i} value={province.id}>{province.provinceName}</option>
         ))}
       </select>
     </>

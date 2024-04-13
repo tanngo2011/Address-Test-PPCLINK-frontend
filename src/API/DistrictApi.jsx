@@ -3,7 +3,12 @@ import { api } from "./api"
 
 
 export let getListDistrictByProvince = async (id) => {
-    return await api("GET", `districts/${id}`, null, null)
+    return await api("GET", `districts/province/${id}`, null, null)
+}
+
+
+export let getDistrictByWard = async (id) => {
+    return await api("GET", `districts/ward/${id}`, null, null)
 }
 
 

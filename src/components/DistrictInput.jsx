@@ -1,27 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getListDistrict, getListDistrictByInput } from "../API/DistrictApi";
 import { getListWardByDistrict } from "../API/WardApi";
+import { getProvinceByDistrict } from "../API/ProvinceApi";
 
 function DistrictInput(props) {
-  let { listDistrict, setDistrictInput, setListWard, setListDistrict } = props;
+  let { listDistrict, setDistrictInput, setListWard, setListDistrict, setListProvince, setProvinceInput, setWardInput } = props;
 
   let [districtSearchInput, setDistrictSearchInput] = useState("");
 
 
+
+
+  //function lấy dữ liệu người dùng nhập vào
   let handleDistrict = (event_param) => {
     let value = event_param.target.value;
+
+    //set dữ liệu người dùng nhập vào để hiển thị kết quả
     setDistrictInput(value);
+
 
     getListWardByDistrict(value).then((response) => {
       console.log(response);
       setListWard(response.data);
+
     });
 
+
+    getProvinceByDistrict(value).then((response) => {
+      console.log(response);
+      setListProvince(response.data)
+      setProvinceInput(response.data[0].id)
+    })
 
   };
 
 
 
+  //function để set input người dùng tìm kiếm:
   let handleDistrictSearch = (event_param) => {
     let value = event_param.target.value;
     setDistrictSearchInput(value)
@@ -30,7 +45,10 @@ function DistrictInput(props) {
 
 
 
+  
 
+
+  //xử lý khi người dùng bấm nút tìm kiếm:
   let logData = () => {
     let districtSearchData = {
       districtInput: districtSearchInput
@@ -47,6 +65,7 @@ function DistrictInput(props) {
         //...Lần 2: tìm tên viết tắt
         getListDistrictByInput(districtSearchData).then((response2) => {
           setListDistrict(response2.data);
+          
 
         })
       } else {
@@ -76,9 +95,10 @@ function DistrictInput(props) {
         id="district"
         title="Đây là danh sách các Quận ở Việt Nam"
         onChange={() => handleDistrict(event)}
+        
       >
         {listDistrict?.map((district, i) => (
-          <option value={district.id}>{district.fullname}</option>
+          <option key={i} value={district.id}>{district.fullname}</option>
         ))}
       </select>
     </>
