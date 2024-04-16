@@ -4,7 +4,7 @@ import { getListWardByDistrict } from "../API/WardApi";
 import { getProvinceByDistrict } from "../API/ProvinceApi";
 
 function DistrictInput(props) {
-  let { listDistrict, setDistrictInput, setListWard, setListDistrict, setListProvince, setProvinceInput, setWardInput } = props;
+  let { listDistrict, setDistrictInput, setListWard, setListDistrict} = props;
 
   let [districtSearchInput, setDistrictSearchInput] = useState("");
 
@@ -25,12 +25,6 @@ function DistrictInput(props) {
 
     });
 
-
-    getProvinceByDistrict(value).then((response) => {
-      console.log(response);
-      setListProvince(response.data)
-      setProvinceInput(response.data[0].id)
-    })
 
   };
 
@@ -84,11 +78,6 @@ function DistrictInput(props) {
   return (
     <>
       <label htmlFor="district"> <h2>Thành phố/Quận/Huyện:</h2> </label>
-
-      <div id="search">
-        <input type="text" id="search-input" onChange={() => handleDistrictSearch(event)}/>
-        <button id="search-button" onClick={logData}>Tìm</button>
-      </div>
 
       <select
         name="district"

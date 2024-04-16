@@ -4,6 +4,8 @@ import DistrictInput from '../components/DistrictInput';
 import WardInput from '../components/WardInput';
 import { getListProvince } from '../API/ProvinceApi';
 import Input from '../components/Input';
+import Search from '../components/Search';
+import SearchOutput from '../components/SearchOutput';
 
 function AddressContainer(props) {
 
@@ -20,13 +22,14 @@ function AddressContainer(props) {
     let [wardInput, setWardInput] = useState("");
     let [detailAddressInput, setDetailAddressInput] = useState("");
 
+    //kết quả cuối cùng
     let [addressCode, setAddressCode] = useState("");
 
+    //kết quả search:
+    let [search, setSearch] = useState([]);
 
-    const selectRef = useRef(null);
 
-
-    //Khởi chạy chương trình: load luôn list district
+    //Khởi chạy chương trình: load luôn list province
     useEffect(() => {
 
         let request_param = null;
@@ -44,24 +47,9 @@ function AddressContainer(props) {
 
 
     let handleAddress = () => {
-        if (Array.isArray(provinceInput)) {
-            setProvinceInput(provinceInput[0].id);
-        }
-
-        if (Array.isArray(districtInput)) {
-            setDistrictInput(districtInput[0].id);
-        }
-
-        if (Array.isArray(wardInput)) {
-            setWardInput(wardInput[0].id);
-        }
             
         setAddressCode(`Địa chỉ ở dạng Mã địa danh là: ${provinceInput}, ${districtInput}, ${wardInput}, ${detailAddressInput}`)
-        
-        console.log(typeof(provinceInput));
 
-        console.log(provinceInput,districtInput, wardInput);
-        
     }
 
 
@@ -73,7 +61,6 @@ function AddressContainer(props) {
             listProvince = {listProvince} 
             setListDistrict = {setListDistrict}
             setProvinceInput={setProvinceInput}
-            setListProvince={setListProvince}
             setListWard={setListWard}
             />
             <br />
@@ -87,17 +74,13 @@ function AddressContainer(props) {
             setListProvince={setListProvince}
             setWardInput={setWardInput}
             />
-            
             <br />
             <WardInput 
             listWard = {listWard} 
             setWardInput={setWardInput}
-            setListWard={setListWard}
-            setListDistrict = {setListDistrict}
-            setDistrictInput = {setDistrictInput}
-            setProvinceInput={setProvinceInput}
-            setListProvince={setListProvince}
             />
+
+            
             <br />
             <Input setDetailAddressInput = {setDetailAddressInput}/>
             <br />
@@ -105,6 +88,14 @@ function AddressContainer(props) {
             <br/>
             
             {addressCode}
+
+            <br />
+            <br />
+            <br />
+            <Search setSearch={setSearch}/>
+            <br />
+            <SearchOutput search={search}/>
+        
             
         </>
     );
